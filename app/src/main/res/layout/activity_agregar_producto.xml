@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastelFondo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar nuevo producto"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/pastelTexto"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/etNombreProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del producto"
+            android:textColor="@color/pastelTexto"
+            android:backgroundTint="@color/pastelBoton"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etPrecioProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio"
+            android:inputType="numberDecimal"
+            android:textColor="@color/pastelTexto"
+            android:backgroundTint="@color/pastelBoton"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:popupBackground="@color/white" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descripción"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:textColor="@color/pastelTexto"
+            android:backgroundTint="@color/pastelBoton"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Stock disponible"
+            android:inputType="number"
+            android:textColor="@color/pastelTexto"
+            android:backgroundTint="@color/pastelBoton"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AGREGAR PRODUCTO"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/pastelBoton"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProductos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

@@ -4,16 +4,22 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.proyecto1.milsabores.model.Producto
 
-class DBHelper(context: Context) : SQLiteOpenHelper(context, "PasteleriaDB", null, 1) {
+class DBHelper(context: Context) : SQLiteOpenHelper(context, "PasteleriaDB", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""
             CREATE TABLE productos (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nombre TEXT,
-                precio REAL
+                nombre TEXT NOT NULL,
+                precio REAL NOT NULL,
+                descripcion TEXT,
+                categoria TEXT,
+                stock INTEGER,
+                fechaCreacion TEXT,
+                imagenUri TEXT
             )
         """.trimIndent())
     }
@@ -23,13 +29,34 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "PasteleriaDB", nul
         onCreate(db)
     }
 
-    fun insertarProducto(nombre: String, precio: Double): Boolean {
+    fun insertarProducto(
+        nombre: String,
+        precio: Double,
+        descripcion: String,
+        categoria: String,
+        stock: Int,
+        fechaCreacion: String,
+        imagenUri: String?
+    ): Boolean {
         val db = writableDatabase
         val values = ContentValues().apply {
             put("nombre", nombre)
             put("precio", precio)
+            put("descripcion", descripcion)
+            put("categoria", categoria)
+            put("stock", stock)
+            put("fechaCreacion", fechaCreacion)
+            put("imagenUri", imagenUri)
         }
-        return db.insert("productos", null, values) != -1L
+
+        val resultado = db.insert("productos", null, values)
+        if (resultado != -1L) {
+            Log.d("DBHelper", "✅ Producto insertado: $nombre, precio: $precio, categoría: $categoria")
+            return true
+        } else {
+            Log.e("DBHelper", "❌ Error al insertar producto: $nombre")
+            return false
+        }
     }
 
     fun obtenerProductos(): List<Producto> {
@@ -38,9 +65,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "PasteleriaDB", nul
         while (cursor.moveToNext()) {
             productos.add(
                 Producto(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getDouble(2)
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                    precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio")),
+                    descripcion = cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                    categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria")),
+                    stock = cursor.getInt(cursor.getColumnIndexOrThrow("stock")),
+                    fechaCreacion = cursor.getString(cursor.getColumnIndexOrThrow("fechaCreacion")),
+                    imagenUri = cursor.getString(cursor.getColumnIndexOrThrow("imagenUri"))
                 )
             )
         }

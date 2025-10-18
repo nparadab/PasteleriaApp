@@ -17,8 +17,16 @@ class ProductoViewModel(application: Application) : AndroidViewModel(application
         _productos.value = repository.obtenerTodos()
     }
 
-    fun agregarProducto(nombre: String, precio: Double) {
-        if (repository.insertar(nombre, precio)) {
+    fun agregarProducto(
+        nombre: String,
+        precio: Double,
+        descripcion: String,
+        categoria: String,
+        stock: Int,
+        fechaCreacion: String,
+        imagenUri: String?
+    ) {
+        if (repository.insertar(nombre, precio, descripcion, categoria, stock, fechaCreacion, imagenUri)) {
             cargarProductos()
         }
     }

@@ -7,8 +7,24 @@ class ProductoRepository(context: Context) {
 
     private val dbHelper = DBHelper(context)
 
-    fun insertar(nombre: String, precio: Double): Boolean {
-        return dbHelper.insertarProducto(nombre, precio)
+    fun insertar(
+        nombre: String,
+        precio: Double,
+        descripcion: String,
+        categoria: String,
+        stock: Int,
+        fechaCreacion: String,
+        imagenUri: String?
+    ): Boolean {
+        return dbHelper.insertarProducto(
+            nombre,
+            precio,
+            descripcion,
+            categoria,
+            stock,
+            fechaCreacion,
+            imagenUri
+        )
     }
 
     fun obtenerTodos(): List<Producto> {
