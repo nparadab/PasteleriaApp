@@ -34,6 +34,7 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
 
         Glide.with(holder.itemView.context)
             .load(producto.imagenUri)
+            .thumbnail(0.1f) //  Simula carga lenta para mostrar animación
             .placeholder(R.drawable.loading_animation)
             .error(R.drawable.error_imagen)
             .into(holder.imagen)
