@@ -30,6 +30,10 @@ class AgregarProductoActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        // Animación al cargar el formulario
+        val fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in)
+        binding.root.startAnimation(fadeIn)
+
         // Cargar categorías en el Spinner
         val categorias = listOf("Pastel", "Torta", "Cupcake", "Galleta")
         val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
@@ -115,10 +119,11 @@ class AgregarProductoActivity : AppCompatActivity() {
             imagenSeleccionada = null
         }
 
-        // Acción del botón para volver al inicio
+        // Acción del botón para volver al inicio con transición
         binding.btnVolverInicio.setOnClickListener {
             val intent = Intent(this, InicioActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
             finish()
         }
 

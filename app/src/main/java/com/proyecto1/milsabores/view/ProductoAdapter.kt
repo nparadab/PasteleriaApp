@@ -1,10 +1,13 @@
 package com.proyecto1.milsabores.view
 
+import android.graphics.drawable.AnimationDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.proyecto1.milsabores.R
 import com.proyecto1.milsabores.model.Producto
 
@@ -28,6 +31,18 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
         holder.id.text = "ID: ${producto.id}"
         holder.nombre.text = producto.nombre
         holder.precio.text = "$${producto.precio}"
+
+        Glide.with(holder.itemView.context)
+            .load(producto.imagenUri)
+            .placeholder(R.drawable.loading_animation)
+            .error(R.drawable.error_imagen)
+            .into(holder.imagen)
+
+        // Iniciar animación si el drawable es animado
+        val anim = holder.imagen.drawable
+        if (anim is AnimationDrawable) {
+            anim.start()
+        }
     }
 
     override fun getItemCount(): Int = productos.size
@@ -36,5 +51,6 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
         val id: TextView = itemView.findViewById(R.id.txtId)
         val nombre: TextView = itemView.findViewById(R.id.txtNombre)
         val precio: TextView = itemView.findViewById(R.id.txtPrecio)
+        val imagen: ImageView = itemView.findViewById(R.id.imgProducto)
     }
 }
