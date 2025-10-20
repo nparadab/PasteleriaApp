@@ -46,24 +46,28 @@
             android:gravity="center"
             android:layout_marginBottom="36dp" />
 
-        <!-- Botón para ingresar producto -->
+        <!-- Botón para ingresar producto con ícono "+" -->
         <Button
             android:id="@+id/btnIngresarProducto"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Ingresar Producto"
             android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_agregar"
+            android:drawablePadding="8dp"
             android:backgroundTint="@color/pastelBoton"
             android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
-        <!-- Botón para ver productos -->
+        <!-- Botón para ver productos con ícono de ojo -->
         <Button
             android:id="@+id/btnVerProductos"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Ver Productos"
             android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
             android:backgroundTint="@color/pastelBoton"
             android:textColor="@color/white" />
 
