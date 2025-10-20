@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/pastelBoton"
-            android:popupBackground="@color/white" />
+            android:popupBackground="@color/pastelFondo" />
 
         <TextView
             android:layout_width="match_parent"
@@ -165,7 +165,6 @@
             android:elevation="4dp"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerProductos"

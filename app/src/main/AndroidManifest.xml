@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Milsabores">
+        android:theme="@style/Theme.Milsabores"> <!-- 👈 Tema corregido -->
 
         <!-- Actividad principal -->
         <activity
@@ -22,15 +22,9 @@
         </activity>
 
         <!-- Actividades secundarias -->
-        <activity
-            android:name=".view.FormularioActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.ListaProductosActivity"
-            android:exported="true" />
-        <activity
-            android:name=".view.AgregarProductoActivity"
-            android:exported="true" />
+        <activity android:name=".view.FormularioActivity" android:exported="true" />
+        <activity android:name=".view.ListaProductosActivity" android:exported="true" />
+        <activity android:name=".view.AgregarProductoActivity" android:exported="true" />
 
     </application>
 </manifest>

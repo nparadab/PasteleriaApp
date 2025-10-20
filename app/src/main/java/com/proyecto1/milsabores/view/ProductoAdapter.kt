@@ -34,15 +34,17 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
 
         Glide.with(holder.itemView.context)
             .load(producto.imagenUri)
-            .thumbnail(0.1f) //  Simula carga lenta para mostrar animación
+            .thumbnail(0.1f)
             .placeholder(R.drawable.loading_animation)
             .error(R.drawable.error_imagen)
             .into(holder.imagen)
 
         // Iniciar animación si el drawable es animado
-        val anim = holder.imagen.drawable
-        if (anim is AnimationDrawable) {
-            anim.start()
+        holder.imagen.post {
+            val drawable = holder.imagen.drawable
+            if (drawable is AnimationDrawable) {
+                drawable.start()
+            }
         }
     }
 
