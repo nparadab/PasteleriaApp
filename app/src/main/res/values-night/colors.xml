@@ -13,4 +13,6 @@
     <color name="pastelTexto">#FFD8B0</color>
     <color name="pastelBoton">#FF9999</color>
     <color name="pastelPrecio">#B0D0FF</color>
+    <color name="errorColor">#D32F2F</color> <!-- Rojo pastel -->
+
 </resources>

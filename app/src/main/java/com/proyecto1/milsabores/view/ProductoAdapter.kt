@@ -1,5 +1,6 @@
 package com.proyecto1.milsabores.view
 
+import android.app.Dialog
 import android.graphics.drawable.AnimationDrawable
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
         holder.nombre.text = producto.nombre
         holder.precio.text = "$${producto.precio}"
 
+        // Cargar imagen en la lista
         Glide.with(holder.itemView.context)
             .load(producto.imagenUri)
             .thumbnail(0.1f)
@@ -45,6 +47,29 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
             if (drawable is AnimationDrawable) {
                 drawable.start()
             }
+        }
+
+        // Mostrar diálogo expandido al tocar el producto
+        holder.itemView.setOnClickListener {
+            val dialog = Dialog(holder.itemView.context)
+            dialog.setContentView(R.layout.dialog_detalle_producto)
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+            val nombre = dialog.findViewById<TextView>(R.id.txtNombreDetalle)
+            val precio = dialog.findViewById<TextView>(R.id.txtPrecioDetalle)
+            val imagen = dialog.findViewById<ImageView>(R.id.imgDetalle)
+
+            nombre.text = producto.nombre
+            precio.text = "$${producto.precio}"
+
+            Glide.with(dialog.context)
+                .load(producto.imagenUri)
+                .thumbnail(0.1f)
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.error_imagen)
+                .into(imagen)
+
+            dialog.show()
         }
     }
 

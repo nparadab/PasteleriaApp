@@ -31,8 +31,8 @@ class InicioActivity : AppCompatActivity() {
     private val cambiarImagen = object : Runnable {
         override fun run() {
             val fade = AnimationUtils.loadAnimation(this@InicioActivity, R.anim.fade_in)
-            imgAnimada.startAnimation(fade)
             imgAnimada.setImageResource(imagenes[indiceActual])
+            imgAnimada.startAnimation(fade)
             indiceActual = (indiceActual + 1) % imagenes.size
             handler.postDelayed(this, intervalo)
         }

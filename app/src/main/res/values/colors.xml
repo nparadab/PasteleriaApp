@@ -10,5 +10,7 @@
     <color name="pastelFondo">#FFF8F0</color>       <!-- Fondo beige claro -->
     <color name="pastelTexto">#D2691E</color>       <!-- Texto naranja -->
     <color name="pastelBoton">#F08080</color>       <!-- Botón coral -->
-    <color name="pastelPrecio">#4682B4</color>      <!-- Azul suave para precio -->
+    <color name="pastelPrecio">#4682B4</color>
+    <color name="errorColor">#D32F2F</color> <!-- Rojo pastel -->
+    <!-- Azul suave para precio -->
 </resources>
