@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
+    <!-- Logo principal -->
     <ImageView
         android:id="@+id/logoPasteleria"
         android:layout_width="200dp"
@@ -16,6 +17,17 @@
         android:src="@drawable/logo_milsabores"
         android:contentDescription="Logo de Pastelería Mil Sabores" />
 
+    <!-- Imagen animada decorativa ajustada -->
+    <ImageView
+        android:id="@+id/imgAnimadaInicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="Imagen decorativa animada de productos" />
+
+    <!-- Eslogan -->
     <TextView
         android:id="@+id/tvDescripcion"
         android:text="Las tortas más ricas, ahora también online"
@@ -26,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!-- Botón para ingresar producto -->
     <Button
         android:id="@+id/btnIngresarProducto"
         android:text="Ingresar Producto"
@@ -35,6 +48,7 @@
         android:backgroundTint="@color/pastelBoton"
         android:textColor="@color/white" />
 
+    <!-- Botón para ver productos -->
     <Button
         android:id="@+id/btnVerProductos"
         android:text="Ver Productos"
@@ -42,4 +56,5 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/pastelBoton"
         android:textColor="@color/white" />
+
 </LinearLayout>
