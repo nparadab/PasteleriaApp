@@ -49,5 +49,18 @@
             android:textSize="16sp"
             android:textColor="@color/pastelPrecio"
             android:layout_marginTop="4dp" />
+
+        <!-- ✅ Campo de stock insertado -->
+        <TextView
+            android:id="@+id/textStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock: 0"
+            android:textSize="14sp"
+            android:textColor="@color/pastelTexto"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-medium" />
+
+
     </LinearLayout>
 </LinearLayout>

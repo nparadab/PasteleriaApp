@@ -32,6 +32,7 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
         holder.id.text = "ID: ${producto.id}"
         holder.nombre.text = producto.nombre
         holder.precio.text = "$${producto.precio}"
+        holder.textStock.text = "Stock: ${producto.stock}" // ✅ Mostrar stock
 
         // Cargar imagen en la lista
         Glide.with(holder.itemView.context)
@@ -80,5 +81,6 @@ class ProductoAdapter : RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>
         val nombre: TextView = itemView.findViewById(R.id.txtNombre)
         val precio: TextView = itemView.findViewById(R.id.txtPrecio)
         val imagen: ImageView = itemView.findViewById(R.id.imgProducto)
+        val textStock: TextView = itemView.findViewById(R.id.textStock) // ✅ Nuevo campo
     }
 }
