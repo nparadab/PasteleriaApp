@@ -1,96 +1,113 @@
 package com.proyecto1.milsabores.view
 
 import android.os.Bundle
+import android.content.Intent
+import android.view.View
+import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proyecto1.milsabores.R
-import com.proyecto1.milsabores.database.ProductoRepository
-import android.widget.Button
-import android.content.Intent
-import android.widget.Spinner
-import android.widget.ArrayAdapter
-import android.widget.AdapterView
-import android.view.View
-import android.widget.CheckBox
+import com.proyecto1.milsabores.model.ProductoDTO
+import com.proyecto1.milsabores.viewmodel.ProductoViewModel
 
 class ListaProductosActivity : AppCompatActivity() {
 
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: ProductoAdapter
-    private lateinit var productoRepository: ProductoRepository
+    private val productoViewModel: ProductoViewModel by viewModels()
 
-    private fun filtrarProductos(categoria: String, soloConStock: Boolean) {
-        val productos = productoRepository.obtenerTodos()
-
-        val filtrados = productos.filter { producto ->
-            val coincideCategoria = categoria == "Todos" || producto.categoria == categoria
-            val tieneStock = !soloConStock || producto.stock > 0
-            coincideCategoria && tieneStock
-        }.sortedByDescending { it.stock } // 🔽 También ordena los filtrados
-
-        adapter.actualizarLista(filtrados)
-    }
+    private var productoSeleccionado: ProductoDTO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_productos)
-
-        productoRepository = ProductoRepository(this)
-
-        recycler = findViewById(R.id.recyclerProductos)
-        recycler.layoutManager = LinearLayoutManager(this)
-
-        adapter = ProductoAdapter()
-        recycler.adapter = adapter
-
-        cargarProductos()
-
         supportActionBar?.hide()
 
-        val btnVolver = findViewById<Button>(R.id.btnVolverInicio)
-        btnVolver.setOnClickListener {
-            val intent = Intent(this, InicioActivity::class.java)
-            startActivity(intent)
+        // Configurar RecyclerView
+        recycler = findViewById(R.id.recyclerProductos)
+        recycler.layoutManager = LinearLayoutManager(this)
+        adapter = ProductoAdapter { producto ->
+            productoSeleccionado = producto
+            Toast.makeText(this, "Seleccionado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
+        }
+        recycler.adapter = adapter
+
+        // Observa productos
+        productoViewModel.productos.observe(this) { lista ->
+            adapter.actualizarLista(lista.sortedByDescending { it.stock })
+        }
+        productoViewModel.cargarProductos()
+
+        // Botón volver
+        findViewById<Button>(R.id.btnVolverInicio).setOnClickListener {
+            startActivity(Intent(this, InicioActivity::class.java))
             finish()
         }
 
+        // Spinner dinámico de categorías desde backend
         val spinnerFiltro = findViewById<Spinner>(R.id.spinnerFiltro)
         val checkStock = findViewById<CheckBox>(R.id.checkStock)
 
-        checkStock.setOnCheckedChangeListener { _, isChecked ->
-            val categoria = spinnerFiltro.selectedItem.toString()
-            filtrarProductos(categoria, isChecked)
+        productoViewModel.categorias.observe(this) { listaCategorias ->
+            val nombres = mutableListOf("Todos")
+            nombres.addAll(listaCategorias.map { it.nombre })
+
+            val adapterSpinner = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombres)
+            adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerFiltro.adapter = adapterSpinner
+        }
+        productoViewModel.cargarCategorias()
+
+        // Función de filtrado
+        val aplicarFiltro = {
+            val categoriaSeleccionada = spinnerFiltro.selectedItem?.toString() ?: "Todos"
+            val soloConStock = checkStock.isChecked
+            val productos = productoViewModel.productos.value ?: emptyList()
+
+            val filtrados = productos.filter { producto ->
+                val coincideCategoria = categoriaSeleccionada == "Todos" ||
+                        producto.categoria.nombre == categoriaSeleccionada
+                val tieneStock = !soloConStock || producto.stock > 0
+                coincideCategoria && tieneStock
+            }.sortedByDescending { it.stock }
+
+            adapter.actualizarLista(filtrados)
         }
 
-        val adapterSpinner = ArrayAdapter.createFromResource(
-            this,
-            R.array.categorias,
-            android.R.layout.simple_spinner_item
-        )
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerFiltro.adapter = adapterSpinner
-
+        checkStock.setOnCheckedChangeListener { _, _ -> aplicarFiltro() }
         spinnerFiltro.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val categoria = parent.getItemAtPosition(position).toString()
-                val soloConStock = checkStock.isChecked
-                filtrarProductos(categoria, soloConStock)
+                aplicarFiltro()
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        // Botones de acción
+        findViewById<Button>(R.id.btnAgregarProducto).setOnClickListener {
+            startActivity(Intent(this, AgregarProductoActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btnEditarProducto).setOnClickListener {
+            productoSeleccionado?.let {
+                val intent = Intent(this, FormularioActivity::class.java)
+                intent.putExtra("producto", it) // ProductoDTO implementa Serializable
+                startActivity(intent)
+            } ?: Toast.makeText(this, "Selecciona un producto primero", Toast.LENGTH_SHORT).show()
+        }
+
+        findViewById<Button>(R.id.btnEliminarProducto).setOnClickListener {
+            productoSeleccionado?.let {
+                productoViewModel.eliminarProducto(it.id ?: return@let)
+                Toast.makeText(this, "Producto eliminado: ${it.nombre}", Toast.LENGTH_SHORT).show()
+            } ?: Toast.makeText(this, "Selecciona un producto primero", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        cargarProductos()
-    }
-
-    // ✅ Función actualizada para ordenar por stock
-    private fun cargarProductos() {
-        val productos = productoRepository.obtenerTodos()
-            .sortedByDescending { it.stock } // 🔽 Ordena de mayor a menor stock
-        adapter.actualizarLista(productos)
+        productoViewModel.cargarProductos()
+        productoViewModel.cargarCategorias()
     }
 }

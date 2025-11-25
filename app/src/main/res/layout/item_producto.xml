@@ -3,64 +3,62 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="12dp"
     android:background="@color/pastelFondo"
     android:layout_marginBottom="8dp"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/imgProducto"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="12dp"
-        android:scaleType="centerCrop"
-        android:background="@color/pastelBoton" />
-
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/txtId"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:text="ID: 0"
+        android:textSize="14sp"
+        android:textColor="@color/purple_200"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="sans-serif" />
 
-        <TextView
-            android:id="@+id/txtId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID: 0"
-            android:textSize="14sp"
-            android:textColor="@color/purple_200"
-            android:layout_marginBottom="4dp" />
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del producto"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/pastelTexto"
+        android:fontFamily="sans-serif-medium" />
 
-        <TextView
-            android:id="@+id/txtNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del producto"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/pastelTexto" />
+    <TextView
+        android:id="@+id/txtPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:textSize="16sp"
+        android:textColor="@color/pastelPrecio"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif" />
 
-        <TextView
-            android:id="@+id/txtPrecio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$0.00"
-            android:textSize="16sp"
-            android:textColor="@color/pastelPrecio"
-            android:layout_marginTop="4dp" />
+    <TextView
+        android:id="@+id/txtStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stock: 0"
+        android:textSize="14sp"
+        android:textColor="@color/pastelTexto"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif-medium" />
 
-        <!-- ✅ Campo de stock insertado -->
-        <TextView
-            android:id="@+id/textStock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Stock: 0"
-            android:textSize="14sp"
-            android:textColor="@color/pastelTexto"
-            android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif-medium" />
-
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txtCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoría: Pastel"
+        android:textSize="14sp"
+        android:textColor="@color/pastelTexto"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif" />
 </LinearLayout>

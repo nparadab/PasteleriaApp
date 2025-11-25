@@ -5,7 +5,10 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:background="@drawable/fondo_dialog"
-    android:gravity="center">
+    android:gravity="center"
+    android:elevation="8dp"
+    android:layout_margin="16dp"
+    android:clipToPadding="false">
 
     <TextView
         android:id="@+id/txtMensaje"
@@ -15,5 +18,8 @@
         android:textSize="18sp"
         android:textColor="@color/pastelTexto"
         android:textStyle="bold"
-        android:gravity="center" />
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp" />
 </LinearLayout>

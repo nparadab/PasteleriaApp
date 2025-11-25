@@ -6,8 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_pastelitos"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".view.ListaProductosActivity">
 
+    <!-- Botón volver -->
     <Button
         android:id="@+id/btnVolverInicio"
         android:layout_width="wrap_content"
@@ -25,36 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <CheckBox
-        android:id="@+id/checkStock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="224dp"
-        android:buttonTint="#FFB6C1"
-        android:fontFamily="sans-serif"
-        android:padding="8dp"
-        android:text="Solo con stock"
-        android:textColor="#FF69B4"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerFiltro" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerProductos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:padding="12dp"
-        android:background="@drawable/recycler_background"
-        app:layout_constraintTop_toBottomOf="@id/checkStock"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp" />
-
+    <!-- Spinner filtro -->
     <Spinner
         android:id="@+id/spinnerFiltro"
         android:layout_width="0dp"
@@ -69,7 +42,88 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
+    <!-- Check stock -->
+    <CheckBox
+        android:id="@+id/checkStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:buttonTint="#FFB6C1"
+        android:fontFamily="sans-serif"
+        android:padding="8dp"
+        android:text="Solo con stock"
+        android:textColor="#FF69B4"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerFiltro" />
 
+    <!-- Recycler productos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProductos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="12dp"
+        android:background="@drawable/recycler_background"
+        tools:listitem="@layout/item_producto"
+        app:layout_constraintTop_toBottomOf="@id/checkStock"
+        app:layout_constraintBottom_toTopOf="@id/layoutBotonesCrud"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Layout con botones CRUD -->
+    <LinearLayout
+        android:id="@+id/layoutBotonesCrud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnAgregarProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF69B4"
+            android:text="Agregar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:elevation="6dp" />
+
+        <Button
+            android:id="@+id/btnEditarProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="#FFB6C1"
+            android:text="Editar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:elevation="6dp" />
+
+        <Button
+            android:id="@+id/btnEliminarProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="#FF69B4"
+            android:text="Eliminar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:elevation="6dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

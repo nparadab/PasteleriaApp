@@ -5,24 +5,30 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:background="@drawable/fondo_dialog"
-    android:gravity="center">
+    android:gravity="center"
+    android:elevation="8dp"
+    android:layout_margin="16dp"
+    android:clipToPadding="false">
 
     <ImageView
         android:id="@+id/imgDetalle"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:background="@color/pastelBoton"
+        android:contentDescription="Imagen del producto" />
 
     <TextView
         android:id="@+id/txtNombreDetalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre"
+        android:text="Nombre del producto"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/pastelTexto"
-        android:gravity="center" />
+        android:gravity="center"
+        android:fontFamily="sans-serif-medium" />
 
     <TextView
         android:id="@+id/txtPrecioDetalle"
@@ -32,5 +38,17 @@
         android:textSize="18sp"
         android:textColor="@color/pastelPrecio"
         android:gravity="center"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:id="@+id/txtCategoriaDetalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoría: Pastel"
+        android:textSize="16sp"
+        android:textColor="@color/pastelTexto"
+        android:gravity="center"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif" />
 </LinearLayout>
