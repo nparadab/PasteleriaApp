@@ -18,6 +18,8 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var eslogan: TextView
     private lateinit var btnIngresar: Button
     private lateinit var btnVer: Button
+    private lateinit var btnClima: Button
+    private lateinit var btnRecetas: Button
 
     private val imagenes = listOf(
         R.drawable.inicio_1,
@@ -49,6 +51,8 @@ class InicioActivity : AppCompatActivity() {
         imgAnimada = findViewById(R.id.imgAnimadaInicio)
         btnIngresar = findViewById(R.id.btnIngresarProducto)
         btnVer = findViewById(R.id.btnVerProductos)
+        btnClima = findViewById(R.id.btnClima)
+        btnRecetas = findViewById(R.id.btnRecetas)
 
         // Animaciones
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
@@ -59,6 +63,8 @@ class InicioActivity : AppCompatActivity() {
         eslogan.startAnimation(slideIn)
         btnIngresar.startAnimation(bounce)
         btnVer.startAnimation(bounce)
+        btnClima.startAnimation(bounce)
+        btnRecetas.startAnimation(bounce)
 
         // Iniciar rotación de imágenes
         handler.post(cambiarImagen)
@@ -70,6 +76,14 @@ class InicioActivity : AppCompatActivity() {
 
         btnVer.setOnClickListener {
             startActivity(Intent(this, ListaProductosActivity::class.java))
+        }
+
+        btnClima.setOnClickListener {
+            startActivity(Intent(this, ClimaActivity::class.java))
+        }
+
+        btnRecetas.setOnClickListener {
+            startActivity(Intent(this, MealActivity::class.java))
         }
     }
 

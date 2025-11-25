@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_pastelitos">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/climaText"
+            android:text="Cargando clima..."
+            android:textSize="24sp"
+            android:textColor="@color/pastelTexto"
+            android:fontFamily="@font/lobster"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnVolver"
+            android:text="Volver"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
+    </LinearLayout>
+</FrameLayout>

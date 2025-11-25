@@ -29,5 +29,9 @@
         <activity android:name=".view.ListaProductosActivity" android:exported="true" />
         <activity android:name=".view.AgregarProductoActivity" android:exported="true" />
 
+        <!-- Nuevas pantallas -->
+        <activity android:name=".view.ClimaActivity" android:exported="true" />
+        <activity android:name=".view.MealActivity" android:exported="true" />
+
     </application>
 </manifest>
