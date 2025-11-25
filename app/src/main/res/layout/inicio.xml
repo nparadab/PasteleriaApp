@@ -71,5 +71,35 @@
             android:backgroundTint="@color/pastelBoton"
             android:textColor="@color/white" />
 
+        <!-- Botón para ver clima -->
+        <Button
+            android:id="@+id/btnClima"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Ver Clima"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp" />
+
+        <!-- Botón para buscar recetas -->
+        <Button
+            android:id="@+id/btnRecetas"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Buscar Recetas"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp" />
+
+
+
+
+
     </LinearLayout>
 </FrameLayout>
