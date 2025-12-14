@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.content.Context
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
@@ -40,6 +43,20 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
+    // ✅ Función de vibración corregida
+    private fun vibrar() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
+        vibrator?.let {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                val effect = VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE)
+                it.vibrate(effect)
+            } else {
+                @Suppress("DEPRECATION")
+                it.vibrate(80)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -69,20 +86,24 @@ class InicioActivity : AppCompatActivity() {
         // Iniciar rotación de imágenes
         handler.post(cambiarImagen)
 
-        // Navegación
+        // ✅ Navegación con vibración integrada
         btnIngresar.setOnClickListener {
+            vibrar()
             startActivity(Intent(this, AgregarProductoActivity::class.java))
         }
 
         btnVer.setOnClickListener {
+            vibrar()
             startActivity(Intent(this, ListaProductosActivity::class.java))
         }
 
         btnClima.setOnClickListener {
+            vibrar()
             startActivity(Intent(this, ClimaActivity::class.java))
         }
 
         btnRecetas.setOnClickListener {
+            vibrar()
             startActivity(Intent(this, MealActivity::class.java))
         }
     }

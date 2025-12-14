@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.proyecto1.milsabores">
 
-    <!-- Permiso necesario para Retrofit/OkHttp -->
+    <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -34,4 +35,5 @@
         <activity android:name=".view.MealActivity" android:exported="true" />
 
     </application>
+
 </manifest>
