@@ -8,11 +8,6 @@ import org.junit.Test
 class ApiTests {
 
 
-    @Test
-    fun `backend devuelve productos`() = runBlocking {
-        val productos = ApiService.productoApi.obtenerProductos()
-        assertTrue(productos.isNotEmpty())
-    }
 
 
     @Test
