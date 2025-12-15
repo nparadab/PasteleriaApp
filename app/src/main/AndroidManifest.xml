@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Milsabores">
 
-        <!-- Actividad principal -->
+        <!-- ✅ Login es la pantalla inicial -->
         <activity
-            android:name=".view.InicioActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,14 +25,29 @@
             </intent-filter>
         </activity>
 
-        <!-- Actividades secundarias -->
+        <!-- ✅ Pantalla de recuperación de contraseña (FALTABA) -->
+        <activity
+            android:name=".view.RecuperarPasswordActivity"
+            android:exported="true" />
+
+        <!-- ✅ Pantallas principales por rol -->
+        <activity android:name=".view.InicioActivity" android:exported="true" />
+        <activity android:name=".view.InicioVendedorActivity" android:exported="true" />
+
+        <!-- ✅ Pantalla del cliente (solo lectura) -->
+        <activity android:name=".view.ListaProductosClienteActivity" android:exported="true" />
+
+        <!-- ✅ Actividades secundarias -->
         <activity android:name=".view.FormularioActivity" android:exported="true" />
         <activity android:name=".view.ListaProductosActivity" android:exported="true" />
         <activity android:name=".view.AgregarProductoActivity" android:exported="true" />
 
-        <!-- Nuevas pantallas -->
+        <!-- ✅ Pantallas de APIs externas -->
         <activity android:name=".view.ClimaActivity" android:exported="true" />
         <activity android:name=".view.MealActivity" android:exported="true" />
+
+        <!-- ✅ Pantalla para ver usuarios (solo admin) -->
+        <activity android:name=".view.ListaUsuariosActivity" android:exported="true" />
 
     </application>
 

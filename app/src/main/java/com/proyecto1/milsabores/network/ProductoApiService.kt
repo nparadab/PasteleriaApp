@@ -10,7 +10,9 @@ interface ProductoApiService {
     suspend fun obtenerProductos(): List<ProductoDTO>
 
     @POST("productos")
-    suspend fun agregarProducto(@Body producto: ProductoDTO): Response<ProductoDTO>
+    suspend fun agregarProducto(
+        @Body producto: ProductoDTO
+    ): Response<ProductoDTO>
 
     @PUT("productos/{id}")
     suspend fun editarProducto(
@@ -19,5 +21,7 @@ interface ProductoApiService {
     ): Response<ProductoDTO>
 
     @DELETE("productos/{id}")
-    suspend fun eliminarProducto(@Path("id") id: Long): Response<Void>
+    suspend fun eliminarProducto(
+        @Path("id") id: Long
+    ): Response<Void>
 }

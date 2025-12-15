@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_pastelitos">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tituloUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Usuarios registrados"
+            android:textSize="28sp"
+            android:textColor="@color/pastelTexto"
+            android:fontFamily="@font/lobster"
+            android:gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <!-- ✅ Botón VOLVER con el MISMO estilo que usas en otras pantallas -->
+        <Button
+            android:id="@+id/btnVolver"
+            android:text="Volver"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- ✅ Lista de usuarios -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</FrameLayout>

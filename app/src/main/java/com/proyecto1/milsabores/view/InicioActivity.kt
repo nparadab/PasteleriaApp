@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.content.Context
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
@@ -20,15 +21,18 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var titulo: TextView
     private lateinit var eslogan: TextView
     private lateinit var btnIngresar: Button
-    private lateinit var btnVer: Button
+    private lateinit var btnVerUsuarios: Button
+    private lateinit var btnVerProductos: Button
     private lateinit var btnClima: Button
     private lateinit var btnRecetas: Button
+    private lateinit var btnLogout: Button
 
     private val imagenes = listOf(
         R.drawable.inicio_1,
         R.drawable.inicio_2,
         R.drawable.inicio_3
     )
+
     private var indiceActual = 0
     private val handler = Handler(Looper.getMainLooper())
     private val intervalo = 4000L
@@ -43,13 +47,11 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
-    // ✅ Función de vibración corregida
     private fun vibrar() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
         vibrator?.let {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                val effect = VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE)
-                it.vibrate(effect)
+                it.vibrate(VibrationEffect.createOneShot(80, VibrationEffect.DEFAULT_AMPLITUDE))
             } else {
                 @Suppress("DEPRECATION")
                 it.vibrate(80)
@@ -62,16 +64,16 @@ class InicioActivity : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.inicio)
 
-        // Referencias visuales
         titulo = findViewById(R.id.tituloPasteleria)
         eslogan = findViewById(R.id.tvDescripcion)
         imgAnimada = findViewById(R.id.imgAnimadaInicio)
         btnIngresar = findViewById(R.id.btnIngresarProducto)
-        btnVer = findViewById(R.id.btnVerProductos)
+        btnVerUsuarios = findViewById(R.id.btnVerUsuarios)
+        btnVerProductos = findViewById(R.id.btnVerProductos)
         btnClima = findViewById(R.id.btnClima)
         btnRecetas = findViewById(R.id.btnRecetas)
+        btnLogout = findViewById(R.id.btnLogout)
 
-        // Animaciones
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom)
         val bounce = AnimationUtils.loadAnimation(this, R.anim.bounce)
@@ -79,22 +81,38 @@ class InicioActivity : AppCompatActivity() {
         titulo.startAnimation(fadeIn)
         eslogan.startAnimation(slideIn)
         btnIngresar.startAnimation(bounce)
-        btnVer.startAnimation(bounce)
+        btnVerUsuarios.startAnimation(bounce)
+        btnVerProductos.startAnimation(bounce)
         btnClima.startAnimation(bounce)
         btnRecetas.startAnimation(bounce)
+        btnLogout.startAnimation(bounce)
 
-        // Iniciar rotación de imágenes
         handler.post(cambiarImagen)
 
-        // ✅ Navegación con vibración integrada
+        // ✅ Control de roles (CORREGIDO: ahora usa "auth")
+        val prefs = getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val rol = prefs.getString("role", "")?.lowercase()
+
+        // ✅ ADMIN ve usuarios
+        if (rol == "admin") {
+            btnVerUsuarios.visibility = View.VISIBLE
+            btnVerUsuarios.setOnClickListener {
+                vibrar()
+                startActivity(Intent(this, ListaUsuariosActivity::class.java))
+            }
+        } else {
+            btnVerUsuarios.visibility = View.GONE
+        }
+
+        // ✅ Todos ven productos
+        btnVerProductos.setOnClickListener {
+            vibrar()
+            startActivity(Intent(this, ListaProductosActivity::class.java))
+        }
+
         btnIngresar.setOnClickListener {
             vibrar()
             startActivity(Intent(this, AgregarProductoActivity::class.java))
-        }
-
-        btnVer.setOnClickListener {
-            vibrar()
-            startActivity(Intent(this, ListaProductosActivity::class.java))
         }
 
         btnClima.setOnClickListener {
@@ -105,6 +123,17 @@ class InicioActivity : AppCompatActivity() {
         btnRecetas.setOnClickListener {
             vibrar()
             startActivity(Intent(this, MealActivity::class.java))
+        }
+
+        // ✅ Cerrar sesión (CORREGIDO)
+        btnLogout.setOnClickListener {
+            vibrar()
+            prefs.edit().clear().apply()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
     }
 

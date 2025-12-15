@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Fondo blanco pastel -->
+    <solid android:color="@color/white" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="14dp" />
+
+    <!-- Borde suave pastel -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/pastelBoton" />
+
+    <!-- Espaciado interno -->
+    <padding
+        android:left="12dp"
+        android:top="12dp"
+        android:right="12dp"
+        android:bottom="12dp" />
+
+</shape>

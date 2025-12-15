@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/fondo_pastelitos"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp">
+
+    <TextView
+        android:id="@+id/tvNombreProducto"
+        android:text="Nombre del producto"
+        android:textSize="20sp"
+        android:textColor="@color/pastelTexto"
+        android:fontFamily="@font/lobster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvPrecioProducto"
+        android:text="$0"
+        android:textSize="18sp"
+        android:textColor="@color/pastelTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

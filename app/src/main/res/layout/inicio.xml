@@ -34,7 +34,7 @@
             android:contentDescription="Imagen decorativa animada de productos"
             android:layout_marginBottom="20dp" />
 
-        <!-- Eslogan con fuente Lobster -->
+        <!-- Eslogan -->
         <TextView
             android:id="@+id/tvDescripcion"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:layout_marginBottom="36dp" />
 
-        <!-- Botón para ingresar producto con ícono "+" -->
+        <!-- Botón para ingresar producto -->
         <Button
             android:id="@+id/btnIngresarProducto"
             android:layout_width="match_parent"
@@ -59,7 +59,21 @@
             android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
-        <!-- Botón para ver productos con ícono de ojo -->
+        <!-- ✅ Botón para ver usuarios (solo ADMIN lo verá) -->
+        <Button
+            android:id="@+id/btnVerUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Ver Usuarios"
+            android:textSize="18sp"
+            android:drawableLeft="@drawable/ic_ver"
+            android:drawablePadding="8dp"
+            android:backgroundTint="@color/pastelBoton"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- ✅ Botón para ver productos (visible para todos) -->
         <Button
             android:id="@+id/btnVerProductos"
             android:layout_width="match_parent"
@@ -97,9 +111,14 @@
             android:textColor="@color/white"
             android:layout_marginTop="16dp" />
 
-
-
-
+        <!-- Logout -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrar sesión"
+            android:layout_marginTop="24dp" />
 
     </LinearLayout>
+
 </FrameLayout>

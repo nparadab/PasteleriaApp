@@ -9,29 +9,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proyecto1.milsabores.R
-import com.proyecto1.milsabores.model.ProductoDTO
 import com.proyecto1.milsabores.viewmodel.ProductoViewModel
 
-class ListaProductosActivity : AppCompatActivity() {
+class ListaProductosClienteActivity : AppCompatActivity() {
 
     private lateinit var recycler: RecyclerView
-    private lateinit var adapter: ProductoAdapter
+    private lateinit var adapter: ProductoAdapterCliente
     private val productoViewModel: ProductoViewModel by viewModels()
-
-    private var productoSeleccionado: ProductoDTO? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_productos)
+        setContentView(R.layout.activity_lista_productos_cliente)
         supportActionBar?.hide()
 
         // Configurar RecyclerView
-        recycler = findViewById(R.id.recyclerProductos)
+        recycler = findViewById(R.id.recyclerProductosCliente)
         recycler.layoutManager = LinearLayoutManager(this)
-        adapter = ProductoAdapter { producto ->
-            productoSeleccionado = producto
-            Toast.makeText(this, "Seleccionado: ${producto.nombre}", Toast.LENGTH_SHORT).show()
-        }
+        adapter = ProductoAdapterCliente(emptyList())
         recycler.adapter = adapter
 
         // Observa productos
@@ -40,34 +34,38 @@ class ListaProductosActivity : AppCompatActivity() {
         }
         productoViewModel.cargarProductos()
 
-        // ✅ Botón volver corregido según rol
-        findViewById<Button>(R.id.btnVolverInicio).setOnClickListener {
+        // ✅ Botón VOLVER
+        val btnVolver = findViewById<Button>(R.id.btnVolverCliente)
+        btnVolver.setOnClickListener {
 
-            val prefs = getSharedPreferences("sesion", MODE_PRIVATE)
+            val prefs = getSharedPreferences("auth", MODE_PRIVATE) // ✅ CORREGIDO
             val rol = prefs.getString("role", "")?.lowercase()
 
             when (rol) {
-                "admin" -> {
-                    startActivity(Intent(this, InicioActivity::class.java))
-                }
-                "vendedor" -> {
-                    startActivity(Intent(this, InicioVendedorActivity::class.java))
-                }
-                "cliente", "supervisor" -> {
-                    // Su pantalla principal es esta misma
-                    startActivity(Intent(this, ListaProductosActivity::class.java))
-                }
-                else -> {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                }
+                "admin" -> startActivity(Intent(this, InicioActivity::class.java))
+                "vendedor" -> startActivity(Intent(this, InicioVendedorActivity::class.java))
+                "pastelero" -> startActivity(Intent(this, MealActivity::class.java))
+                "cliente" -> startActivity(Intent(this, ListaProductosClienteActivity::class.java))
+                else -> startActivity(Intent(this, LoginActivity::class.java))
             }
 
             finish()
         }
 
+        // ✅ Botón CERRAR SESIÓN (CORREGIDO)
+        val btnLogout = findViewById<Button>(R.id.btnLogoutCliente)
+        btnLogout.setOnClickListener {
+            val prefs = getSharedPreferences("auth", MODE_PRIVATE) // ✅ CORREGIDO
+            prefs.edit().clear().apply()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
         // Spinner dinámico de categorías desde backend
-        val spinnerFiltro = findViewById<Spinner>(R.id.spinnerFiltro)
-        val checkStock = findViewById<CheckBox>(R.id.checkStock)
+        val spinnerFiltro = findViewById<Spinner>(R.id.spinnerFiltroCliente)
+        val checkStock = findViewById<CheckBox>(R.id.checkStockCliente)
 
         productoViewModel.categorias.observe(this) { listaCategorias ->
             val nombres = mutableListOf("Todos")
@@ -101,26 +99,6 @@ class ListaProductosActivity : AppCompatActivity() {
                 aplicarFiltro()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-
-        // Botones de acción
-        findViewById<Button>(R.id.btnAgregarProducto).setOnClickListener {
-            startActivity(Intent(this, AgregarProductoActivity::class.java))
-        }
-
-        findViewById<Button>(R.id.btnEditarProducto).setOnClickListener {
-            productoSeleccionado?.let {
-                val intent = Intent(this, FormularioActivity::class.java)
-                intent.putExtra("producto", it)
-                startActivity(intent)
-            } ?: Toast.makeText(this, "Selecciona un producto primero", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<Button>(R.id.btnEliminarProducto).setOnClickListener {
-            productoSeleccionado?.let {
-                productoViewModel.eliminarProducto(it.id ?: return@let)
-                Toast.makeText(this, "Producto eliminado: ${it.nombre}", Toast.LENGTH_SHORT).show()
-            } ?: Toast.makeText(this, "Selecciona un producto primero", Toast.LENGTH_SHORT).show()
         }
     }
 
